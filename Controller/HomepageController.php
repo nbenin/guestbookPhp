@@ -6,25 +6,30 @@ class HomepageController
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $POST)
     {
+        $allPosts = [];
         $verter = new Verter();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+            if (isset($_SESSION['guestbook'])) {
+                $guestbook = $_SESSION['guestbook'];
+            } else {
+                $guestbook = new Guestbook();
+            }
+
             // Convert post to an Object
-            $userPost = new Post($POST['title'], $POST['name'], $POST['textArea']);
+            $POST['time'] = time();
+            $userPost = new Post(htmlspecialchars($POST['title']), htmlspecialchars($POST['name']),
+                htmlspecialchars($POST['textArea']), $POST['time']);
 
-            // Add to Guestbook
+            // push to guestbook
+            $guestbook->setPosts($userPost);
 
+            $allPosts = $guestbook->getPosts();
 
-            // Convert post to Json and store
-            $verter->convertToJson($POST);
+            $verter->convertToJson($allPosts);
+            $_SESSION['guestbook'] = $guestbook;
         }
-
-        // Load guestbook
-        $invertedInput = $verter->invertFromJson();
-        $guestbook = new Guestbook();
-
-        var_dump($invertedInput);
 
         //load the view
         require 'View/homepage.php';

@@ -6,14 +6,14 @@ class Post {
     private $name;
     private $title;
     private $content;
-    private $date;
+    private $time;
 
-    public function __construct(string $name, string $title, string $content)
+    public function __construct(string $name, string $title, string $content, int $time)
     {
         $this->name = $name;
         $this->title = $title;
         $this->content = $content;
-        $this->date = $this->setDate();
+        $this->time = $time;
     }
 
     // Getters
@@ -23,17 +23,11 @@ class Post {
     public function getTitle() : string {
         return $this->title;
     }
-    public function getDate() : int {
-        return $this->date;
+    public function getTime(): int {
+        return $this->time;
     }
     public function getContent() : string{
         return $this->content;
-    }
-
-    // Setters
-    private function setDate() : int
-    {
-        return time();
     }
 
 }

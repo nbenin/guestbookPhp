@@ -19,6 +19,9 @@
         </form>
     </section>
 
+    <section>
+        <?php if(isset($_SESSION['guestbook'])) {require 'includes/guestbook.php';} ?>
+    </section>
     <?php require 'includes/footer.php' ?>
 
 <!-- Booststrap JS shizz -->
