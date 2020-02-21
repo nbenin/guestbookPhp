@@ -6,20 +6,25 @@ class HomepageController
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $POST)
     {
+        $verter = new Verter();
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $title = $POST['title'];
-            $name = $POST['name'];
-            $content = $POST['textArea'];
+            // Convert post to an Object
+            $userPost = new Post($POST['title'], $POST['name'], $POST['textArea']);
 
-            $userPost = new Post($title, $name, $content);
-            var_dump($userPost);
+            // Add to Guestbook
 
-            $converter = new Converter();
-            $convertedInput = $converter->convertToJson($POST);
 
-            var_dump($convertedInput);
+            // Convert post to Json and store
+            $verter->convertToJson($POST);
         }
+
+        // Load guestbook
+        $invertedInput = $verter->invertFromJson();
+        $guestbook = new Guestbook();
+
+        var_dump($invertedInput);
 
         //load the view
         require 'View/homepage.php';
