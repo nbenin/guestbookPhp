@@ -12,12 +12,13 @@
 </head>
 <body>
     <?php require 'includes/header.php' ?>
+
     <section>
-        <h4>Hello <?php echo $user->getName()?>,</h4>
         <form method="post">
             <?php require 'includes/input.php' ?>
         </form>
     </section>
+
     <?php require 'includes/footer.php' ?>
 
 <!-- Booststrap JS shizz -->
