@@ -8,12 +8,12 @@ class Post {
     private $content;
     private $date;
 
-    public function __construct(string $name, string $title, string $content, int $date)
+    public function __construct(string $name, string $title, string $content)
     {
         $this->name = $name;
         $this->title = $title;
         $this->content = $content;
-        $this->date = $date;
+        $this->date = $this->setDate();
     }
 
     // Getters
@@ -28,6 +28,12 @@ class Post {
     }
     public function getContent() : string{
         return $this->content;
+    }
+
+    // Setters
+    private function setDate() : int
+    {
+        return time();
     }
 
 }

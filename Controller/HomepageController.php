@@ -7,8 +7,17 @@ class HomepageController
     public function render(array $POST)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $title = $POST['title'];
+            $name = $POST['name'];
+            $content = $POST['textArea'];
+
+            $userPost = new Post($title, $name, $content);
+            var_dump($userPost);
+
             $converter = new Converter();
-            $convertedInput = $converter->convertPost($POST);
+            $convertedInput = $converter->convertToJson($POST);
+
             var_dump($convertedInput);
         }
 
