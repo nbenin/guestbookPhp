@@ -18,8 +18,8 @@ class Verter {
         $newArray= [];
         foreach($arrayOfObj as $obj) {
             $smallArray = [
-                'name'  => $obj->getName(),
                 'title' => $obj->getTitle(),
+                'name'  => $obj->getName(),
                 'time' => $obj->getTime(),
                 'content' => $obj->getContent()
                 ];

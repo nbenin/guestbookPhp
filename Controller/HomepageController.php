@@ -8,27 +8,18 @@ class HomepageController
     {
         $allPosts = [];
         $verter = new Verter();
+        $guestbook = new Guestbook();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            if (isset($_SESSION['guestbook'])) {
-                $guestbook = $_SESSION['guestbook'];
-            } else {
-                $guestbook = new Guestbook();
-            }
-
-            // Convert post to an Object
+            // Convert posts to an Object
+            $invertedJson = $verter->invertFromJson();
             $POST['time'] = time();
-            $userPost = new Post(htmlspecialchars($POST['title']), htmlspecialchars($POST['name']),
-                htmlspecialchars($POST['textArea']), $POST['time']);
-
-            // push to guestbook
-            $guestbook->setPosts($userPost);
-
+            array_push($invertedJson, $POST);
+            $guestbook->makeObjs($invertedJson);
             $allPosts = $guestbook->getPosts();
-
             $verter->convertToJson($allPosts);
-            $_SESSION['guestbook'] = $guestbook;
+
         }
 
         //load the view
